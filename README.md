@@ -14,3 +14,46 @@ $$
 Los programas calculan lo siguiente 
 * El grupo de norma resultante de la compactificacion de la cuerda heterotica con grupo de norma $E_8 \times E_8$ en el orbifold $T^6/\mathbb{Z}_7$ con vector de desplazamiento $V$ y vector de torcimiento $v$.
 - La materia cargada en la teoria 4D resultante en los sectores torcidos y no torcidos. 
+
+## Raices de E8
+Primeramente el programa [raicesE8.py](raicesE8.py) calcula las raices del grupo $E_8$ y genera un archivo .json en donde las incluye. Las raices de este grupo son un conjunto de vectores descritos por las siguientes condiciones 
+
+$$
+ x \in \mathbb{R}^8 \ \bigg| \ \left( x \in \mathbb{Z}^8 \text{y} \sum_{i=1}^8 x_i \in 2\mathbb{Z} \right) \text{o}
+ \left( x \in \left(\mathbb{Z} + \tfrac{1}{2}\right)^8 \text{y} \sum_{i=1}^8 x_i \in 2\mathbb{Z} \right) .
+$$
+
+Ademas 
+
+$$
+\sum_i x^i x^i = 2.
+$$
+
+## Bosones cargados 
+Dado el vector de desplazamiento $V$ el programa [bosones.py](bosones.py) encuentra los bosones cargados de la teoria 4D resultante, siendo estos las raices $p$ de $E_8$ que cumplen 
+
+$$
+p \cdot V = 0 \ \text{mod} 1.
+$$
+
+El programa obtiene las raices del archivo previamente generado por [raicesE8.py](raicesE8.py) y arroja tres nuevos archivos:
+* raices_simples.json en donde se encuentran las raices simples del conjunto de bosones cargados de la teoria 4D, siendo estas vectores que una vez definida una convencion de positividad (en este caso se dice que un vector es positivo si su primera entrada no cero es positiva) una raiz es simple si es positiva y su diferencia con otra raiz simple no es positiva.
+* bosones.json en donde se encuentran los bosones cargados de la teoria 4D.
+* raices_no_inv.json en donde se encuentran las raices de $E_8$ que no cumplen la condicion de invariancia anterior. 
+## Materia cargada
+El programa [materia_untwisted.py](materia_untwisted.py) encuentra los vectores de peso del grupo SO(8) siendo el siguiente conjunto $q$ de 16 vectores:
+
+$$
+q = 
+\begin{cases}
+&\underline{(\pm 1, 0, 0, 0 )} \\
+&\left(\pm \frac{1}{2}, \pm \frac{1}{2}, \pm \frac{1}{2}, \pm \frac{1}{2} \right)
+\end{cases},
+$$
+
+donde el subrayado denota todas las posibles permutaciones y los vectores fraccionarios tienen numero par de signos positivos.
+Despues de esto obtiene la representacion en vectores de la materia cargada de la teoria en el sector no torcido, que consta del producto tensorial entre las raices $p$ y los vectores $q$ que cumplen 
+
+$$
+p \cdot V - q \cdot v = 0 \ \text{mod} 1.
+$$
