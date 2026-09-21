@@ -111,12 +111,6 @@ def raices_inv_and_noinv(V, raices):
             
     return bosones_4d, matter_4d_candidates
 
-
-# =============================================================================
-# BLOQUE DE EJECUCIÓN PRINCIPAL
-# Todo el código dentro de este 'if' solo correrá si ejecutas este archivo directamente.
-# Si en el futuro importas 'cartan_matrix' en otro script, nada de esto se ejecutará.
-# =============================================================================
 if __name__ == '__main__':
     # Importar el archivo generado previamente
     with open("raices_e8.json", "r") as f:
