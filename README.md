@@ -13,7 +13,14 @@ $$
 
 Los programas calculan lo siguiente 
 * El grupo de norma resultante de la compactificacion de la cuerda heterotica con grupo de norma $E_8 \times E_8$ en el orbifold $T^6/\mathbb{Z}_7$ con vector de desplazamiento $V$ y vector de torcimiento $v$.
-- La materia cargada en la teoria 4D resultante en los sectores torcidos y no torcidos. 
+- La materia cargada en la teoria 4D resultante en los sectores torcidos y no torcidos.
+
+
+## Tecnologías Usadas
+* **Python**: Lenguaje principal.
+* **NumPy**: Para el manejo eficiente de arrays
+* **Itertools**: Para la generacion productos cartesianos.
+* **Scipy**: Para encontrar vectores que cumplan las condiciones deseadas dentro de un gran conjunto. 
 
 > [!WARNING]
 > Este programa calcula el espectro en el caso relevante para el que fue desarrollado en el que $V$ es de la siguiente forma:
@@ -77,11 +84,33 @@ $$
 \end{align}
 $$
 
-donde $k \in (1,2,3,4,5,6,7)$ y $\tilde{N}=\tfrac{n}{7}$ con $n\in(1,2,3,4,5)$.
+donde $k \in (3,5,6)$  y $\tilde{N}=\tfrac{n}{7}$ con $n\in(1,2,3,4,5)$.
 > [!WARNING]
-> Las ecuaciones anteriores son validas unicamente para $7v=(1,2,-3)$ o equivalentes fisicamente. En caso de que el vector $v$ cambie estas ecuaciones cambian. El programa sigue funcionando pero conduce a fisica incorrecta.
+> Las ecuaciones anteriores son validas unicamente para $7v=(1,2,-3)$ o equivalentes fisicamente. En caso de que el vector $v$ cambie estas ecuaciones cambian. El programa sigue funcionando pero conduce a fisica incorrecta. Por lo que el unico parametro libre para estos programas es $V$.
 
 Los calculos de estos vectores se hacen en programas independientes
 
 * `p_twist.py` genera vectores $p \in \Gamma_{E_8}$ y guarda aquellos que cumplan la condiciion anterior para los diferentes sectores torcidos etiquetados por $k$ y guarda el resultado en un archivo JSON.
 * `q_twist.py` genera los vectores $q\in\Gamma_{SO(8)}$ que cumplen la condicion anterior e imprime el resultado en la terminal.
+
+## Resultados 
+El programa se utilizo para el desarrollo de la tesis de investigacion [El MSSM a paritr del orbifold heterotico Z7](). El vector $V$ se eligio ser 
+
+$$
+V=\frac{1}{7}(2,2,1,1,1,1,1,1)(0^8)
+$$
+
+donde se obtuvo lo siguiente
+
+> [!IMPORTANT]
+> * 240 raices de $E_8$ como es matematicamente correcto
+> * 72 bosones cargados en la teoria 4D
+> * 6 raices simples 
+> * Una matriz de Cartan A que corresponde a $E_6$
+> * Los siguientes vectores $p$ en el sector toricido: 27 vectores $p$ para $k=3,5,6$ y $\tilde{N}=0$, 1 vector $p$ para $k=3,5,6$ y $\tilde{N}=\tfrac{1}{7}$, 1 vector $p$ para $k=3,5,6$ y $\tilde{N}=\tfrac{2}{7}$ y  1 vector $p$ para $k=3,5,6$ y $\tilde{N}=\tfrac{4}{7}$
+> * 3 vectores $q$ en el sector torcido
+
+## Ejecucion 
+Para ejecutar localmente se necesita tener instalado `itertools`, `numpy`, `json`, `scipy` y `Fraction`. 
+
+Los programas `raicesE8.py`, `bosones.py` y `materia_untwisted.py` se ejecutan en ese orden. Mientras que `p_twist.py` y `q_twisst.py` se pueden ejecutar en cuaquier momento. 
