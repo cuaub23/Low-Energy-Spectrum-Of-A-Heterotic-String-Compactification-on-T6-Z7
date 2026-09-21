@@ -46,9 +46,9 @@ p \cdot V = 0 \ \text{mod} 1.
 $$
 
 El programa obtiene las raices del archivo previamente generado por `raicesE8.py` y arroja tres nuevos archivos:
-* raices_simples.json en donde se encuentran las raices simples del conjunto de bosones cargados de la teoria 4D, siendo estas vectores que una vez definida una convencion de positividad (en este caso se dice que un vector es positivo si su primera entrada no cero es positiva) una raiz es simple si es positiva y su diferencia con otra raiz simple no es positiva.
-* bosones.json en donde se encuentran los bosones cargados de la teoria 4D.
-* raices_no_inv.json en donde se encuentran las raices de $E_8$ que no cumplen la condicion de invariancia anterior. 
+* `raices_simples.json` en donde se encuentran las raices simples del conjunto de bosones cargados de la teoria 4D, siendo estas vectores que una vez definida una convencion de positividad (en este caso se dice que un vector es positivo si su primera entrada no cero es positiva) una raiz es simple si es positiva y su diferencia con otra raiz simple no es positiva.
+* `bosones.json` en donde se encuentran los bosones cargados de la teoria 4D.
+* `raices_no_inv.json` en donde se encuentran las raices de $E_8$ que no cumplen la condicion de invariancia anterior. 
 ## Materia cargada
 El programa `materia_untwisted.py` encuentra los vectores de peso del grupo SO(8) siendo el siguiente conjunto $q$ de 16 vectores:
 
