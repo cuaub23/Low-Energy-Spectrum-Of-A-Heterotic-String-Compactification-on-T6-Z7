@@ -1,61 +1,38 @@
 import numpy as np
 import itertools
-from sympy import Matrix
 import json
 
-def generate_e8_roots_numpy():
-    roots_list = []
+def generate_e8_roots():
+    """
+    Genera las 240 raíces del grupo de Lie E8.
+    
+    El conjunto de raíces de E8 consta de:
+    1. 112 vectores con entradas enteras (dos entradas con +/-1 y el resto 0).
+    2. 128 vectores con entradas semienteras (+/-0.5) y un número par de signos negativos.
+    
+    Returns:
+        np.ndarray: Array de dimensión (240, 8) que contiene todas las raíces.
+    """
+    roots = []
+    
+    # 1. Generar vectores con entradas enteras (+/-1, +/-1, 0, 0, 0, 0, 0, 0)
     for i, j in itertools.combinations(range(8), 2):
-        for sign_i in [1, -1]:
-            for sign_j in [1, -1]:
-                root = np.zeros(8)
-                root[i] = sign_i
-                root[j] = sign_j
-                roots_list.append(root)
+        for sign_i, sign_j in itertools.product([1, -1], repeat=2):
+            root = np.zeros(8)
+            root[i] = sign_i
+            root[j] = sign_j
+            roots.append(root)
+            
+    # 2. Generar vectores con entradas semienteras (+/-0.5) con número par de signos negativos
     for signs in itertools.product([0.5, -0.5], repeat=8):
-        if list(signs).count(-0.5) % 2 == 0:
-            roots_list.append(np.array(signs))
+        if signs.count(-0.5) % 2 == 0:
+            roots.append(np.array(signs))
 
-    return np.array(roots_list)
+    return np.array(roots)
 
-def simple_roots(roots):
-    roots = np.array(roots, dtype=float)
-    mask = np.zeros(len(roots), dtype=bool)
-    for i, r in enumerate(roots):
-        for component in r:
-            if component != 0:
-                mask[i] = (component > 0)
-                break
-    positive = roots[mask]
-    n = len(positive)
-
-    positive_set = {tuple(np.round(r, 8)) for r in positive}
-    diffs = positive[:, np.newaxis, :] - positive[np.newaxis, :, :]
-    diffs_rounded = np.round(diffs, 8)
-
-    simple = []
-    for i, p in enumerate(positive):
-        es_simple = True
-        for j in range(n):
-            if i != j:  # No comparar consigo mismo
-                diff_tuple = tuple(diffs_rounded[i, j])
-                if diff_tuple in positive_set:
-                    es_simple = False
-                    break
-        if es_simple:
-            simple.append(p)
-    return np.array(simple)
-
-def cartan_matrix(simple_roots):
-    simple_roots = np.array(simple_roots)
-    n = len(simple_roots)
-    A = np.zeros((n,n))
-    for i in range(n):
-        for j in range(n):
-            A[i,j] = 2*np.dot(simple_roots[i], simple_roots[j]) / np.dot(simple_roots[j], simple_roots[j])
-    return A
-
-
-raicese8 = generate_e8_roots_numpy()
-with open('raices_e8.json', 'w') as f:
-    json.dump(raicese8.tolist(), f)
+if __name__ == "__main__":
+    # Ejecución principal para generar y guardar el archivo JSON
+    raices_e8 = generate_e8_roots()
+    
+    with open('raices_e8.json', 'w') as f:
+        json.dump(raices_e8.tolist(), f)
